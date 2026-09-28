@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const cors = require("cors")
 require("dotenv").config();
 
@@ -18,6 +18,19 @@ async function connectToMongoDB() {
 
     const db = client.db("drivefeet")
     const cardetailscollection = db.collection("cardetails")
+
+     app.get('/cardetails',async(req,res)=>{
+      const result = await cardetailscollection.find().toArray();
+      res.json(result)
+    })
+
+    app.get('/cardetails/:id',async(req,res)=>{
+      const {id} = req.params
+      const result = await cardetailscollection.findOne({_id:new ObjectId(id)})
+
+      res.json(result)
+
+    })
 
     app.post('/cardetails',async(req,res)=>{
       const details = req.body
