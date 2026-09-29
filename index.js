@@ -18,6 +18,8 @@ async function connectToMongoDB() {
 
     const db = client.db("drivefeet")
     const cardetailscollection = db.collection("cardetails")
+    const bookingcollection = db.collection("bookings")
+    
 
      app.get('/cardetails',async(req,res)=>{
       const result = await cardetailscollection.find().toArray();
@@ -35,6 +37,12 @@ async function connectToMongoDB() {
     app.post('/cardetails',async(req,res)=>{
       const details = req.body
       const result = await cardetailscollection.insertOne(details)
+
+      res.json(result)
+    })
+    app.post('/bookings',async(req,res)=>{
+      const details = req.body
+      const result = await bookingcollection.insertOne(details)
 
       res.json(result)
     })
