@@ -40,6 +40,23 @@ async function connectToMongoDB() {
 
       res.json(result)
     })
+
+     app.get('/myadded/:userid',async(req,res)=>{
+      const {userid} = req.params
+      const result = await cardetailscollection.find({userid}).toArray()
+
+      res.json(result)
+
+    })
+
+     app.get('/bookings/:userid',async(req,res)=>{
+      const {userid} = req.params
+      const result = await bookingcollection.find({userid}).toArray()
+
+      res.json(result)
+
+    })
+   
     app.post('/bookings',async(req,res)=>{
       const details = req.body
       const result = await bookingcollection.insertOne(details)
