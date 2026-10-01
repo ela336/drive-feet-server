@@ -34,6 +34,15 @@ async function connectToMongoDB() {
 
     })
 
+    app.patch('/cardetails/:id',async(req,res)=>{
+      const {id} = req.params
+      const update = req.body
+      const result = await cardetailscollection.updateOne({_id:new ObjectId(id)}, {$set: update})
+
+      res.json(result)
+
+    })
+
     app.post('/cardetails',async(req,res)=>{
       const details = req.body
       const result = await cardetailscollection.insertOne(details)
