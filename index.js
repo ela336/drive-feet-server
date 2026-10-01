@@ -43,6 +43,12 @@ async function connectToMongoDB() {
 
     })
 
+    app.delete('/cardetails/:id',async(req,res)=>{
+      const {id}=req.params
+      const result = await cardetailscollection.deleteOne({_id:new ObjectId(id)})
+      res.json(result)
+    })
+
     app.post('/cardetails',async(req,res)=>{
       const details = req.body
       const result = await cardetailscollection.insertOne(details)
